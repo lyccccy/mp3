@@ -28,7 +28,7 @@ Coverage includes all ten resource endpoints, required fields and types, email u
 - `GET /api/users` and `GET /api/tasks`: Mongoose handles JSON-encoded `where`, `sort`, `select`, `skip`, `limit`, and `count`. Tasks default to 100 results; users have no default limit. An explicit `limit=0` is unlimited. `count=true` returns the number matching `where`, independent of projection, sorting, or pagination.
 - `GET /api/users/:id` and `GET /api/tasks/:id`: return one resource or 404; only `select` is interpreted. Other query parameters are ignored.
 - `POST`: creates a resource and returns 201. `PUT`: replaces its editable fields, preserves `dateCreated`, and returns 200. Missing optional fields receive their defaults.
-- `DELETE`: returns 200 with `{ "message": "User deleted.", "data": null }` (or `Task deleted.`), after cleaning references. CORS `OPTIONS` returns 204 without a body.
+- `DELETE`: returns 204 without a body, after cleaning references. CORS `OPTIONS` also returns 204 without a body.
 - All other success/error responses contain exactly `message` and `data`. Errors use 400, 404, or 500 with human-readable messages and `data: null`.
 - Send JSON with correctly typed fields. URL-encoded forms also work; encode `pendingTasks` as a JSON array and `completed` as `true` or `false`.
 - Task ids and user ids in bodies must be 24-character hexadecimal strings. Duplicate pending ids are deduplicated. Referenced resources must exist, and pending tasks must be incomplete. An omitted assigned user name is filled in from the user; an explicit mismatch is rejected.
@@ -57,10 +57,10 @@ curl --get http://localhost:3000/api/tasks \
 1. The public source repository is [lyccccy/mp3](https://github.com/lyccccy/mp3). The local `origin` points to this repository; the original course template is retained as `upstream`.
 2. Configure an Atlas database and its database user. Follow the assignment's network access requirement, and copy the connection URI without committing it.
 3. On Render, create a Blueprint from your repository using `render.yaml`. It selects Node 24, installs production dependencies with `npm ci --omit=dev`, starts with `npm start`, and asks for `MONGODB_URI` as a secret. Alternatively create a Node web service with those same settings.
-4. Verify `https://<your-service>.onrender.com/api` and the resource endpoints. Set `API_URL` in `submit.js` to the deployed base URL (without `/api`); leave `AUTOGRADER_URL` unchanged. Run `npm run submit`.
+4. The deployed base URL is `https://mp3-api-pfi5.onrender.com`; the API starts at [`/api`](https://mp3-api-pfi5.onrender.com/api). `API_URL` in `submit.js` is configured to this base URL, and `AUTOGRADER_URL` is unchanged. Run `npm run submit` with Node 24 to check the deployment.
 5. Submit the repository and deployed URL through the form linked in the assignment README. Include the LLM chat log and answer the LLM-use survey.
 
-Atlas connectivity and local startup have been verified against the `mp3` database. `GET /api`, `GET /api/users`, and `GET /api/tasks` each returned 200; both resource lists were empty. Render deployment and the remote autograder have not been run. Local passing tests do not establish an autograder score.
+Atlas connectivity and local startup have been verified against the `mp3` database. On Render, `GET /api`, `GET /api/users`, and `GET /api/tasks` each returned 200. The course autograder runs against the deployed API; running it does not submit the assignment form.
 
 ## References and LLM use
 

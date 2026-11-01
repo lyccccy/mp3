@@ -39,12 +39,17 @@ beforeEach(async () => {
     await User.deleteMany({});
 });
 
-async function request(method, resource, body, status = 200) {
+async function request(method, resource, body, status = method === 'DELETE' ? 204 : 200) {
     const response = await fetch(`${base}${resource}`, {
         method,
         headers: body === undefined ? {} : { 'Content-Type': 'application/json' },
         body: body === undefined ? undefined : JSON.stringify(body)
     });
+    if (status === 204) {
+        assert.equal(response.status, 204, `${method} ${resource}`);
+        assert.equal(await response.text(), '', 'A 204 response must not contain a body.');
+        return null;
+    }
     const payload = await response.json();
     assert.equal(response.status, status, `${method} ${resource}: ${JSON.stringify(payload)}`);
     assert.deepEqual(Object.keys(payload).sort(), ['data', 'message']);

@@ -36,7 +36,7 @@ module.exports = function (router) {
         });
         router.delete(`/${path}/:id`, async (req, res) => {
             await deleteResource(Model, req.params.id);
-            res.json({ message: `${Model.modelName} deleted.`, data: null });
+            res.status(204).end();
         });
     }
 };
