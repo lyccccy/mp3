@@ -8,6 +8,7 @@ from pathlib import Path
 
 def redact_private_context(content):
     content = content.replace(str(Path.home()), "/Users/<user>")
+    content = re.sub(r"mongodb(?:\+srv)?://[^\s`\"']+", "<redacted-mongodb-uri>", content)
 
     def redact_ip(match):
         try:
