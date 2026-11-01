@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: llama-task-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /api
+    envVars:
+      - key: NODE_VERSION
+        value: 24
+      - key: MONGODB_URI
+        sync: false

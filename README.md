@@ -1,6 +1,8 @@
 # MP #3: APIed Piper
 ### Due: Tuesday, Nov 3, 2026, 11:59PM CT
 
+Implementation, local testing, deployment instructions, and source/LLM disclosure: [IMPLEMENTATION.md](./IMPLEMENTATION.md).
+
 ## Table of Contents
 1. [Assignment](#1-assignment)
 2. [Getting Started](#2-getting-started)
