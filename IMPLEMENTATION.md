@@ -60,7 +60,7 @@ curl --get http://localhost:3000/api/tasks \
 4. The deployed base URL is `https://mp3-api-pfi5.onrender.com`; the API starts at [`/api`](https://mp3-api-pfi5.onrender.com/api). `API_URL` in `submit.js` is configured to this base URL, and `AUTOGRADER_URL` is unchanged. Run `npm run submit` with Node 24 to check the deployment.
 5. Submit the repository and deployed URL through the form linked in the assignment README. Include the LLM chat log and answer the LLM-use survey.
 
-Atlas connectivity and local startup have been verified against the `mp3` database. On Render, `GET /api`, `GET /api/users`, and `GET /api/tasks` each returned 200. The course autograder runs against the deployed API; running it does not submit the assignment form.
+Atlas connectivity and local startup have been verified against the `mp3` database. On Render, `GET /api`, `GET /api/users`, and `GET /api/tasks` each returned 200; successful task and user deletion each returned 204 with an empty body. The official course autograder returned **100/100 (20/20 points)** on November 1, 2026, with every grading item passing. All 20 local integration tests also passed. Running the autograder does not submit the assignment form.
 
 ## References and LLM use
 
